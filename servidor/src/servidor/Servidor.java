@@ -63,32 +63,38 @@ public class Servidor {
                 }
             }
         
-        in.close();  
-        socket.close();  
-        socket_cli.close();
+        
         int i = 1;
-        String ruta = "C:/Users/Pc/Documents/NetBeansProjects/Chat/chat"+ i +".txt";
+        String ruta = "C:/Users/Pc/Documents/NetBeansProjects/chat"+ i +".txt";
         File file = new File(ruta); 
         
         
         if (!file.exists()) {
             file.createNewFile();
         }
+       
+        FileWriter escribir = new FileWriter(file.getAbsoluteFile(), true);
+        BufferedWriter bw = new BufferedWriter(escribir);
+        escribir.write(Final);
+        bw.write(Final);
         
-        do{
-            ++i;
-            ruta = "C:/Users/Pc/Documents/NetBeansProjects/Chat/chat"+ i +".txt";
-            file = new File(ruta);
-        }while (file.exists());
-
+        try {                       //Cierra instancias de FileWriter y BufferedWriter
+            if (bw != null)
+                bw.close();
+            if (escribir != null)
+                escribir.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
-        PrintWriter writer = new PrintWriter("C:/Users/Pc/Documents/NetBeansProjects/Chat/chat"+ i +".txt", "UTF-8");
-        writer.println(Final);
-        writer.close();  
-            //FileWriter fw = new FileWriter(file);
-            //BufferedWriter bw = new BufferedWriter(fw);
-            //PrintWriter wr = new PrintWriter(bw);     
+        i++;
 
+        //FileWriter fw = new FileWriter(file);
+        
+        //PrintWriter wr = new PrintWriter(bw);     
+        in.close();  
+        socket.close();  
+        socket_cli.close();
             
        
     }
